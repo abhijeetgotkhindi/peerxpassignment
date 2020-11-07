@@ -78,11 +78,11 @@ input{
 			 <div class="form-group">
                  <div class="input-group">
                     <span class="input-group-addon">Department:&nbsp;</span>
-                       <select tabindex="4" class="form-control" id="department" name="department">
-							<option>Dept 1</option>
-							<option>Dept 2</option>
-							<option>Dept 3</option>
-							<option>Dept 4</option>
+                       <select tabindex="4" class="form-control" id="department" name="department" required >
+							<option value="dept1">Dept 1</option>
+							<option value="dept2">Dept 2</option>
+							<option value="dept3">Dept 3</option>
+							<option value="dept4">Dept 4</option>
 						</select>
                    </div>
              </div>
@@ -90,11 +90,11 @@ input{
 			<div class="form-group">
                  <div class="input-group">
                     <span class="input-group-addon">Category:&nbsp;</span>
-                       <select tabindex="4" class="form-control" id="category" name="category">
-						<option>Category 1</option>
-						<option>Category 2</option>
-						<option>Category 3</option>
-						<option>Category 4</option>
+                       <select tabindex="4" class="form-control" id="category" name="category" required>
+						<option  value="cat1">Category 1</option>
+						<option  value="cat2">Category 2</option>
+						<option  value="cat3">Category 3</option>
+						<option  value="cat4">Category 4</option>
 					</select>
                    </div>
              </div>
@@ -102,21 +102,21 @@ input{
 			 <div class="form-group">
                  <div class="input-group">
                     <span class="input-group-addon">Subject:&nbsp;</span>
-                       <input type="text" name="subject" id="subject" placeHolder="Enter Subject." class="form-control" style=" margin: auto;"/>
+                       <input type="text" name="subject" id="subject" placeHolder="Enter Subject." class="form-control" style=" margin: auto;"  required />
                    </div>
              </div>
 			 
 			 <div class="form-group">
                  <div class="input-group">
                     <span class="input-group-addon">Description:&nbsp;</span>
-                       <textarea type="text" name="description" id="description" placeHolder="Enter Description." class="form-control" style=" margin: auto;"/></textarea>
+                       <textarea type="text" name="description" id="description" placeHolder="Enter Description." class="form-control" style=" margin: auto;"  required /></textarea>
                    </div>
              </div>
 			 
 			 <div class="form-group">
                  <div class="input-group">
                     <span class="input-group-addon">Priority:&nbsp;</span>
-                       <select tabindex="4" class="form-control" id="priority" name="priority">
+                       <select tabindex="4" class="form-control" id="priority" name="priority"  required>
 						<option>High</option>
 						<option>Medium</option>
 						<option>Low</option>
@@ -139,7 +139,7 @@ input{
                    </div>
              </div>				 
 						
-			<input type="submit" value="submit"/>
+			<button class="btn btn-success" type="button" value="submit" onclick="submitTicket();">Submit</button>
 			</form>
       </div>
     </div>
@@ -158,6 +158,37 @@ input{
       e.preventDefault();
       $("#wrapper").toggleClass("toggled");
     });
+	
+	function submitTicket(){
+		var department = $("#department").val();
+		var category = $("#category").val();
+		var subject = $("#subject").val();
+		var description = $("#description").val();
+		var priority = $("#department").val();
+		var email = $("#email").val();
+		var name = $("#name").val();
+		
+		 var mydata = {};
+            mydata["department"] = department.toString();
+            mydata["category"] = category.toString();
+            mydata["subject"] = subject.toString();
+            mydata["description"] = description.toString();
+            mydata["priority"] = priority.toString();
+            mydata["email"] = email.toString();
+            mydata["name"] = name.toString();			
+			
+			var json_mydata = JSON.stringify(mydata);
+
+            $.post("createTicket.php?",{json_string:json_mydata},
+                function (result, status) {
+					alert(result);
+                }).fail(
+                function (jqXHR, textStatus, errorThrown) {
+                    alert("Filter Error: " + jqXHR.responseText);
+                    $('#div_loading').fadeOut();
+                });
+	}
+	
   </script>
 
 </body>

@@ -59,7 +59,7 @@
 								<div class="icon">
 									<i class="fa fa-files-o"></i>
 								</div>
-								<a href="" class="small-box-footer"  style="top:28px;">
+								<a href="ticketDetails.php" class="small-box-footer"  style="top:28px;">
 									<i class="fa fa-eye"></i> View Tickets"
 								</a>
 							</div>
